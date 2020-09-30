@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ParentSurvey from "./surveys/parentSurvey/parentSurvey.js";
 import AuthorSurvey from "./surveys/authorSurvey/authorSurvey";
 import CriticSurvey from "./surveys/criticSurvey/criticSurvey";
@@ -19,7 +19,7 @@ function App({books}) {
   
 
   return (
-    <Router>
+    <Router >
       <div>
         <nav>
           <ul>
@@ -33,51 +33,51 @@ function App({books}) {
         </nav>
 
         <Switch>
-          <Route path={process.env.PUBLIC_URL + "/"} exact>
+          <Route path="/" exact>
             <Home />
           </Route>
           <Route
-            path={process.env.PUBLIC_URL + "/books/:title/parent-survey"}
-            // path={"/books/:title/parent-survey"}
+            // path={process.env.PUBLIC_URL + "/books/:title/parent-survey"}
+            path={"/books/:title/parent-survey"}
             component={ParentSurvey}
           ></Route>
           <Route
-            path={process.env.PUBLIC_URL + "/books/:title/author-survey"}
-            // path={"/books/:title/author-survey"}
+            // path={process.env.PUBLIC_URL + "/books/:title/author-survey"}
+            path={"/books/:title/author-survey"}
             component={AuthorSurvey}
           ></Route>
           <Route
-            path={process.env.PUBLIC_URL + "/books/:title/critic-survey"}
-            // path={"/books/:title/critic-survey"}
+            // path={process.env.PUBLIC_URL + "/books/:title/critic-survey"}
+            path={"/books/:title/critic-survey"}
             component={CriticSurvey}
           ></Route>
           <Route
-            path={process.env.PUBLIC_URL + "/books/:title/teacher-survey"}
-            // path={"/books/:title/teacher-survey"}
+            // path={process.env.PUBLIC_URL + "/books/:title/teacher-survey"}
+            path={"/books/:title/teacher-survey"}
             component={TeacherSurvey}
           ></Route>
           <Route
-            path={process.env.PUBLIC_URL + "/books"}
-            // path="/books"
+            // path={process.env.PUBLIC_URL + "/books"}
+            path="/books"
             exact
           >
             <Books />
           </Route>
           <Route
-            path={process.env.PUBLIC_URL + "/books/:title"}
-            // path={"/books/:title"}
+            // path={process.env.PUBLIC_URL + "/books/:title"}
+            path={"/books/:title"}
             component={BookInfo}
             exact
           ></Route>
           <Route
-            path={process.env.PUBLIC_URL + "/submitted"}
+            // path={process.env.PUBLIC_URL + "/submitted"}
             path={"/submitted"}
             component={Submitted}
             exact
           ></Route>
           <Route
-            path={process.env.PUBLIC_URL + "*"}
-            // path="*"
+            // path={process.env.PUBLIC_URL + "*"}
+            path="*"
             component={NotFoundPage}
           />
         </Switch>
