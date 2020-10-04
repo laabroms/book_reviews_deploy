@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/book_reviews_deploy/static/css/main.d56f4533.chunk.css",
-    "main.js": "/book_reviews_deploy/static/js/main.f4abb95a.chunk.js",
-    "main.js.map": "/book_reviews_deploy/static/js/main.f4abb95a.chunk.js.map",
+    "main.js": "/book_reviews_deploy/static/js/main.99a6364f.chunk.js",
+    "main.js.map": "/book_reviews_deploy/static/js/main.99a6364f.chunk.js.map",
     "runtime-main.js": "/book_reviews_deploy/static/js/runtime-main.e8f332b5.js",
     "runtime-main.js.map": "/book_reviews_deploy/static/js/runtime-main.e8f332b5.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/book_reviews_deploy/static/css/2.d9ad5f5c.chunk.css",
     "static/js/2.a2aded89.chunk.js": "/book_reviews_deploy/static/js/2.a2aded89.chunk.js",
     "static/js/2.a2aded89.chunk.js.map": "/book_reviews_deploy/static/js/2.a2aded89.chunk.js.map",
     "index.html": "/book_reviews_deploy/index.html",
-    "precache-manifest.9926c5777bf7e6688129daba4c850e3d.js": "/book_reviews_deploy/precache-manifest.9926c5777bf7e6688129daba4c850e3d.js",
+    "precache-manifest.d08de700f335c49bcc391c464965aa5c.js": "/book_reviews_deploy/precache-manifest.d08de700f335c49bcc391c464965aa5c.js",
     "service-worker.js": "/book_reviews_deploy/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/book_reviews_deploy/static/css/2.d9ad5f5c.chunk.css.map",
     "static/css/main.d56f4533.chunk.css.map": "/book_reviews_deploy/static/css/main.d56f4533.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.d9ad5f5c.chunk.css",
     "static/js/2.a2aded89.chunk.js",
     "static/css/main.d56f4533.chunk.css",
-    "static/js/main.f4abb95a.chunk.js"
+    "static/js/main.99a6364f.chunk.js"
   ]
 }
