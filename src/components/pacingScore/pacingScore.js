@@ -56,7 +56,7 @@ class PacingScore extends React.Component {
         <div className="radios">
             <MuiThemeProvider theme={theme}>
                 <FormControl component="fieldset">
-                <RadioGroup name="pacing" onChange={this.handleChange} required>
+                <RadioGroup name="pacing" onChange={this.handleChange}>
                     <FormControlLabel
                     value="slow-paced"
                     control={<Radio />}

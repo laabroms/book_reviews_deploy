@@ -6,7 +6,8 @@ class NotFoundPage extends React.Component {
   render() {
     return (
       <div>
-        PAGE NOT FOUND
+        <p style={{ textAlign: "center", fontWeight:'bold' }}>Return to Home</p>
+
         <p style={{ textAlign: "center" }}>
           <Link to="/">Go to Home </Link>
         </p>

@@ -96,6 +96,7 @@ class AuthorSurvey extends React.Component {
       suspense: 50,
       suspenseElements: "",
       complexity: "",
+      sending: false,
     };
   }
 
@@ -286,6 +287,33 @@ class AuthorSurvey extends React.Component {
     if (data.anger === true) {
       feelingsElements += "anger, ";
     }
+    if (data.surprise === true) {
+      feelingsElements += "surprise, ";
+    }
+    if (data.disappointment === true) {
+      feelingsElements += "disappointment, ";
+    }
+    if (data.hopefulness === true) {
+      feelingsElements += "hopefulness, ";
+    }
+    if (data.amusement === true) {
+      feelingsElements += "amusement, ";
+    }
+    if (data.anxiety === true) {
+      feelingsElements += "anxiety, ";
+    }
+    if (data.compassion === true) {
+      feelingsElements += "compassion, ";
+    }
+    if (data.excitement === true) {
+      feelingsElements += "excitement, ";
+    }
+    if (data.confusion === true) {
+      feelingsElements += "confusion, ";
+    }
+    if (data.frustration === true) {
+      feelingsElements += "frustration, ";
+    }
     if (data.other === true) {
       feelingsElements += data.otherInfo;
     }
@@ -433,18 +461,8 @@ class AuthorSurvey extends React.Component {
     if (data.lifelong === true) {
       friendshipElements += "lifelong friends, ";
     }
-    if (data.partners === true) {
-      friendshipElements += "partners-in-crime, ";
-    }
-    if (data.thickAndThin === true) {
-      friendshipElements += "through thick-and-thin friendships, ";
-    }
     if (data.unhealthy === true) {
       friendshipElements += "unhealthy friendships: mean-spirited, ";
-    }
-    if (data.secretCrush === true) {
-      friendshipElements +=
-        "secret-crush friendships: they like each other but won't express it, ";
     }
     if (data.other === true) {
       friendshipElements += data.otherInfo;
@@ -648,6 +666,11 @@ class AuthorSurvey extends React.Component {
   };
 
   submitHandler = async(e) => {
+
+    this.setState({
+      sending: true
+    })
+
     var bodyFormDataAuthor = new FormData();
 
     bodyFormDataAuthor.append("isbn", this.state.isbn);
@@ -734,7 +757,20 @@ class AuthorSurvey extends React.Component {
       headers: {
         "content-type": `multipart/form-data; boundary=$(form._boundary)`,
       },
-    });
+    })
+    //  .then(
+    //    setTimeout(function () {
+    //     this.setState({
+    //       sending: false,
+    //     })
+    //     if (this.state.sending === false) {
+    //       this.props.history.push('/submitted')
+    //     }
+    //   }.bind(this), 1500)
+    // );
+     .then(
+        this.props.history.push('/submitted')
+      );
   }
 
 
@@ -745,19 +781,18 @@ class AuthorSurvey extends React.Component {
       margin: "3%",
     };
     const bookTitle = {
-      fontSize: 20,
       fontWeight: "bold",
     };
     const bookInfo = {
-      fontSize: 20,
+      fontSize: 30,
     };
 
     if (this.state.author !== "") {
       return (
-        <form type='submit' className="form">
+        <form type="submit" className="form">
           <FadeIn>
             <div style={container}>
-              <h2>Book Level and Target Review</h2>
+              {/* <h2>Book Level and Target Review</h2> */}
               <p style={bookInfo}>
                 <i style={bookTitle}>{this.state.title}</i> by{" "}
                 {this.state.author}
@@ -859,7 +894,16 @@ class AuthorSurvey extends React.Component {
                 className="submitButton"
                 onClick={this.submitHandler}
               >
-                SUBMIT
+                {this.state.sending === true ? (
+                  <Spinner
+                    animation="border"
+                    role="status"
+                    variant="light"
+                    size="sm"
+                  />
+                ) : (
+                  "SUBMIT"
+                )}
               </button>
             </div>
           </FadeIn>

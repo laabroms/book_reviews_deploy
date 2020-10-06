@@ -66,7 +66,6 @@ class ComplexCharacter extends React.Component {
               <RadioGroup
                 name="complexCharacter"
                 onChange={this.handleChange}
-                required
               >
                 <FormControlLabel
                   value="Snooze-Fest"

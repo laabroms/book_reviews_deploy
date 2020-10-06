@@ -255,7 +255,7 @@ const marks = [
   },
   {
     value: 50,
-    label: "A little",
+    label: "Somewhat",
   },
   {
     value: 100,

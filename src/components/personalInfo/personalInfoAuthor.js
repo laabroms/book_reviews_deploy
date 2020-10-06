@@ -168,9 +168,9 @@ class PersonalInfoAuthor extends React.Component {
               <div className="selectTab">
                 <input
                   className="inputField"
+                  required
                   name="name"
                   placeholder="Name"
-                  required
                   onBlur={this.handleChange}
                 />
               </div>

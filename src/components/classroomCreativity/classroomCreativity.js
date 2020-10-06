@@ -30,7 +30,6 @@ export default class ClassroomCreativity extends React.Component {
 
         <textarea
           className="textarea"
-          required
           name="classroomCreativity"
           onBlur={this.handleChange}
         ></textarea>

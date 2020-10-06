@@ -45,7 +45,7 @@ class TeacherSurvey extends React.Component {
       author: "",
       tags: "",
       age_range: "",
-      isbn: '',
+      isbn: "",
 
       name: "",
       location: "",
@@ -99,6 +99,7 @@ class TeacherSurvey extends React.Component {
       suspense: 50,
       suspenseElements: "",
       complex: "",
+      sending: false,
     };
   }
 
@@ -137,8 +138,7 @@ class TeacherSurvey extends React.Component {
     var isbn = this.state.books[index].fields["isbn"];
     this.setState({
       isbn: isbn,
-  })
-
+    });
   };
 
   handlePersonalInfo = (data) => {
@@ -202,6 +202,33 @@ class TeacherSurvey extends React.Component {
     }
     if (data.anger === true) {
       feelingsElements += "anger, ";
+    }
+    if (data.surprise === true) {
+      feelingsElements += "surprise, ";
+    }
+    if (data.disappointment === true) {
+      feelingsElements += "disappointment, ";
+    }
+    if (data.hopefulness === true) {
+      feelingsElements += "hopefulness, ";
+    }
+    if (data.amusement === true) {
+      feelingsElements += "amusement, ";
+    }
+    if (data.anxiety === true) {
+      feelingsElements += "anxiety, ";
+    }
+    if (data.compassion === true) {
+      feelingsElements += "compassion, ";
+    }
+    if (data.excitement === true) {
+      feelingsElements += "excitement, ";
+    }
+    if (data.confusion === true) {
+      feelingsElements += "confusion, ";
+    }
+    if (data.frustration === true) {
+      feelingsElements += "frustration, ";
     }
     if (data.other === true) {
       feelingsElements += data.otherInfo;
@@ -304,7 +331,7 @@ class TeacherSurvey extends React.Component {
       chatter: data.chatter,
     });
   };
- 
+
   handleClassroomCreativity = (data) => {
     this.setState({
       classroomCreativity: data.classroomCreativity,
@@ -453,18 +480,8 @@ class TeacherSurvey extends React.Component {
     if (data.lifelong === true) {
       friendshipElements += "lifelong friends, ";
     }
-    if (data.partners === true) {
-      friendshipElements += "partners-in-crime, ";
-    }
-    if (data.thickAndThin === true) {
-      friendshipElements += "through thick-and-thin friendships, ";
-    }
     if (data.unhealthy === true) {
       friendshipElements += "unhealthy friendships: mean-spirited, ";
-    }
-    if (data.secretCrush === true) {
-      friendshipElements +=
-        "secret-crush friendships: they like each other but won't express it, ";
     }
     if (data.other === true) {
       friendshipElements += data.otherInfo;
@@ -667,7 +684,12 @@ class TeacherSurvey extends React.Component {
     });
   };
 
-  submitHandler = async(e) => {
+  submitHandler = async (e) => {
+
+    this.setState({
+      sending: true
+    })
+
     var bodyFormDataTeacher = new FormData();
 
     bodyFormDataTeacher.append("isbn", this.state.isbn);
@@ -677,24 +699,27 @@ class TeacherSurvey extends React.Component {
     bodyFormDataTeacher.append("gradeLevel", this.state.gradeLevel);
     bodyFormDataTeacher.append("school", this.state.school);
 
-    if (this.state.age_range === 'y') {
+    if (this.state.age_range === "y") {
       bodyFormDataTeacher.append("clearness", this.state.clearness);
+      bodyFormDataTeacher.append("masterpiece", this.state.masterpiece);
     }
-
-    
-    bodyFormDataTeacher.append("masterpiece", this.state.masterpiece);
-
 
     bodyFormDataTeacher.append("educational", this.state.educational);
     bodyFormDataTeacher.append("chatter", this.state.chatter);
     bodyFormDataTeacher.append("chatterElements", this.state.chatterElements);
     bodyFormDataTeacher.append("inspiration", this.state.inspiration);
-    bodyFormDataTeacher.append("inspirationElements", this.state.inspirationElements);
+    bodyFormDataTeacher.append(
+      "inspirationElements",
+      this.state.inspirationElements
+    );
     bodyFormDataTeacher.append("feelings", this.state.feelings);
     bodyFormDataTeacher.append("feelingsElements", this.state.feelingsElements);
     bodyFormDataTeacher.append("accessibility", this.state.accessibility);
     bodyFormDataTeacher.append("livelyLibraries", this.state.livelyLibraries);
-    bodyFormDataTeacher.append("classroomCreativity", this.state.classroomCreativity);
+    bodyFormDataTeacher.append(
+      "classroomCreativity",
+      this.state.classroomCreativity
+    );
     bodyFormDataTeacher.append("diversity", this.state.diversity);
     bodyFormDataTeacher.append("favorite", this.state.favorite);
     bodyFormDataTeacher.append("critique", this.state.critique);
@@ -703,7 +728,7 @@ class TeacherSurvey extends React.Component {
     bodyFormDataTeacher.append("extraInfo", this.state.extraInfo);
     bodyFormDataTeacher.append("feedback", this.state.feedback);
 
-    if (this.state.age_range === 'o') {
+    if (this.state.age_range === "o") {
       bodyFormDataTeacher.append("pacing", this.state.pacing);
       bodyFormDataTeacher.append("contentWarning", this.state.contentWarning);
     }
@@ -761,7 +786,23 @@ class TeacherSurvey extends React.Component {
       headers: {
         "content-type": `multipart/form-data; boundary=$(form._boundary)`,
       },
-    });
+    })
+    // .then(
+    //   setTimeout(
+    //     function () {
+    //       this.setState({
+    //         sending: false,
+    //       });
+    //       if (this.state.sending === false) {
+    //         this.props.history.push("/submitted");
+    //       }
+    //     }.bind(this),
+    //     1500
+    //   )
+    // );
+     .then(
+        this.props.history.push('/submitted')
+      );
   };
 
   render() {
@@ -769,19 +810,18 @@ class TeacherSurvey extends React.Component {
       margin: "3%",
     };
     const bookTitle = {
-      fontSize: 20,
       fontWeight: "bold",
     };
     const bookInfo = {
-      fontSize: 20,
+      fontSize: 30,
     };
 
     if (this.state.author !== "") {
       return (
-        <form type='submit'>
+        <form type="submit">
           <FadeIn>
             <div style={container}>
-              <h2>Book Level and Target Review</h2>
+              {/* <h2>Book Level and Target Review</h2> */}
               <p style={bookInfo}>
                 <i style={bookTitle}>{this.state.title}</i> by{" "}
                 {this.state.author}
@@ -790,20 +830,20 @@ class TeacherSurvey extends React.Component {
               <PersonalInfoAuthor onChange={this.handlePersonalInfo} />
               <TeacherInfo onChange={this.handleTeacherInfo} />
 
+              {/* for younger */}
               {this.state.age_range === "y" ? (
                 <>
                   <ClearnessCalculator onChange={this.handleClearness} />
                   <MasterpieceMeter onChange={this.handleMasterpiece} />
                 </>
               ) : null}
-              {/* for younger */}
 
-              {/* for older */}
+              {/* for older
               {this.state.age_range === "o" ? (
                 <>
                   <MasterpieceMeterOlder onChange={this.handleMasterpiece} />
                 </>
-              ) : null}
+              ) : null} */}
 
               <InspirationElement onChange={this.handleInspiration} />
               <FeelingFactor onChange={this.handleFeeling} />
@@ -899,7 +939,11 @@ class TeacherSurvey extends React.Component {
                 className="submitButton"
                 onClick={this.submitHandler}
               >
-                SUBMIT
+                {this.state.sending === true ? (
+                  <Spinner animation="border" role="status" variant="light" size='sm' />
+                ) : 
+                  ('SUBMIT')
+                 }
               </button>
             </div>
           </FadeIn>

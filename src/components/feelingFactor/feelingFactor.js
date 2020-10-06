@@ -20,6 +20,15 @@ class FeelingFactor extends React.Component {
       sadness: false,
       fear: false,
       anger: false,
+      surprise: false,
+      disappointment: false,
+      hopefulness: false,
+      amusement: false,
+      anxiety: false,
+      compassion: false,
+      excitement: false,
+      confusion: false,
+      frustration: false,
       other: false,
       otherInfo: "",
     };
@@ -143,6 +152,123 @@ class FeelingFactor extends React.Component {
               }
               label="Anger"
             />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="surprise"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Surprise"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="disappointment"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Disappointment"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="hopefulness"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Hopefulness"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="amusement"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Amusement"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="anxiety"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Anxiety"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="compassion"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Compassion"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="excitement"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Excitement"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="confusion"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Confusion"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.educational}
+                  onChange={this.handleChangeCheck}
+                  name="frustration"
+                  style={{
+                    color: "#EBB700",
+                  }}
+                />
+              }
+              label="Frustration"
+            />
             <div className="otherInfoSection">
               <FormControlLabel
                 control={
@@ -213,7 +339,7 @@ const marks = [
   },
   {
     value: 50,
-    label: "Slightly emotional",
+    label: "Somewhat",
   },
   {
     value: 100,

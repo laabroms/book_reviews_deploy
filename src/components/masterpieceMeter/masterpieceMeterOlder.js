@@ -73,11 +73,11 @@ const marks = [
   },
   {
     value: 50,
-    label: "They were okay",
+    label: "Somewhat",
   },
   {
     value: 100,
-    label: "Loved them",
+    label: "Very much",
   },
 ];
 

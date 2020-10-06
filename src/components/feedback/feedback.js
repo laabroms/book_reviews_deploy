@@ -26,7 +26,6 @@ class Feedback extends React.Component {
 
           <textarea
             className="textarea"
-            required
             name="feedback"
             // value={this.state.extraInfo}
             // onChange={(e) =>

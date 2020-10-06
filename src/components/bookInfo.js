@@ -16,7 +16,9 @@ class BookInfo extends React.Component {
       publisher: '',
       pub_year: '',
       isbn: '',
-      avg_score: ''
+      score1: '',
+      score2: '',
+      score3: '',
     };
   }
   
@@ -64,9 +66,17 @@ class BookInfo extends React.Component {
         this.setState({
           isbn: isbn
         })
-        var avg_score = this.state.books[index].fields['avg_score'];
+        var score1 = this.state.books[index].fields['score1'];
         this.setState({
-          avg_score: avg_score
+          score1: score1
+        })
+        var score2 = this.state.books[index].fields['score2'];
+        this.setState({
+          score2: score2
+        })
+        var score3 = this.state.books[index].fields['score3'];
+        this.setState({
+          score3: score3
         })
 
 
@@ -92,7 +102,9 @@ class BookInfo extends React.Component {
             <p>Publisher: {this.state.publisher}</p>
             <p>Publishing Year: {this.state.pub_year}</p>
             <p>ISBN: {this.state.isbn}</p>
-            <p>Average Score: {this.state.avg_score}</p>
+            <p>Score 1: {this.state.score1}</p>
+            <p>Score 2: {this.state.score2}</p>
+            <p>Score 3: {this.state.score3}</p>
 
             <nav>
               <p>

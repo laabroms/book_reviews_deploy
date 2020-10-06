@@ -22,10 +22,7 @@ class FriendshipScore extends React.Component {
       new: false,
       frenemies: false,
       lifelong: false,
-      partners: false,
-      thickAndThin: false,
       unhealthy: false,
-      secretCrush: false,
       other: false,
       otherInfo: "",
     };
@@ -192,32 +189,7 @@ class FriendshipScore extends React.Component {
               }
               label="Lifelong Friends"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.partners}
-                  onChange={this.handleChangeCheck}
-                  name="partners"
-                  style={{
-                    color: "#00c427",
-                  }}
-                />
-              }
-              label="Partners-in-Crime"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.thickAndThin}
-                  onChange={this.handleChangeCheck}
-                  name="thickAndThin"
-                  style={{
-                    color: "#00c427",
-                  }}
-                />
-              }
-              label="Through Thick-and-Thin Friendships"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -231,20 +203,7 @@ class FriendshipScore extends React.Component {
               }
               label="Unhealthy friendships: mean-spirited"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.secretCrushs}
-                  onChange={this.handleChangeCheck}
-                  name="secretCrush"
-                  style={{
-                    color: "#00c427",
-                  }}
-                />
-              }
-              label="Secret-Crush Friendships: they like each other but won't express it"
-            />
-
+           
             <div className="otherInfoSection">
               <FormControlLabel
                 control={

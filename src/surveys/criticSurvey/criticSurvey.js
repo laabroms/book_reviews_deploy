@@ -12,11 +12,10 @@ import ExtraInfo from "../../components/extraInfo/extraInfo";
 import Feedback from "../../components/feedback/feedback";
 import PlatformInfo from "../../components/platformInfo/platformInfo";
 import FadeIn from "react-fade-in";
-import ChatterBar from "../../components/chatterBar/chatterBar";
+import ChatterBarCritic from "../../components/chatterBar/chatterBarCritic";
 import InspirationElement from "../../components/inspirationElement/inspirationElement";
 import GrippingGrade from "../../components/grippingGrade/grippingGrade";
 import PacingScore from "../../components/pacingScore/pacingScore";
-import ContentWarning from "../../components/contentWarning/contentWarning";
 import axios from "axios";
 import {Spinner} from 'react-bootstrap';
 import MasterpieceMeterOlder from "../../components/masterpieceMeter/masterpieceMeterOlder";
@@ -43,7 +42,7 @@ class CriticSurvey extends React.Component {
       author: "",
       tags: "",
       age_range: "",
-      isbn: '',
+      isbn: "",
 
       name: "",
       location: "",
@@ -70,8 +69,6 @@ class CriticSurvey extends React.Component {
       inspirationElements: "",
       pacing: "",
       gripping: "",
-      contentWarning: "",
-
 
       silly: 50,
       sillyElements: "",
@@ -98,6 +95,8 @@ class CriticSurvey extends React.Component {
       suspense: 50,
       suspenseElements: "",
       complexity: "",
+      contentWarning: "",
+      sending: false,
     };
   }
 
@@ -139,8 +138,6 @@ class CriticSurvey extends React.Component {
       isbn: isbn,
     });
   };
-
-
 
   handlePersonalInfo = (data) => {
     this.setState({
@@ -283,6 +280,33 @@ class CriticSurvey extends React.Component {
     if (data.anger === true) {
       feelingsElements += "anger, ";
     }
+    if (data.surprise === true) {
+      feelingsElements += "surprise, ";
+    }
+    if (data.disappointment === true) {
+      feelingsElements += "disappointment, ";
+    }
+    if (data.hopefulness === true) {
+      feelingsElements += "hopefulness, ";
+    }
+    if (data.amusement === true) {
+      feelingsElements += "amusement, ";
+    }
+    if (data.anxiety === true) {
+      feelingsElements += "anxiety, ";
+    }
+    if (data.compassion === true) {
+      feelingsElements += "compassion, ";
+    }
+    if (data.excitement === true) {
+      feelingsElements += "excitement, ";
+    }
+    if (data.confusion === true) {
+      feelingsElements += "confusion, ";
+    }
+    if (data.frustration === true) {
+      feelingsElements += "frustration, ";
+    }
     if (data.other === true) {
       feelingsElements += data.otherInfo;
     }
@@ -309,11 +333,6 @@ class CriticSurvey extends React.Component {
     });
   };
 
-  handleWarning = (data) => {
-    this.setState({
-      contentWarning: data.contentWarning,
-    });
-  };
   handleSilly = (data) => {
     var sillyElements = "";
     if (data.physical === true) {
@@ -429,18 +448,8 @@ class CriticSurvey extends React.Component {
     if (data.lifelong === true) {
       friendshipElements += "lifelong friends, ";
     }
-    if (data.partners === true) {
-      friendshipElements += "partners-in-crime, ";
-    }
-    if (data.thickAndThin === true) {
-      friendshipElements += "through thick-and-thin friendships, ";
-    }
     if (data.unhealthy === true) {
       friendshipElements += "unhealthy friendships: mean-spirited, ";
-    }
-    if (data.secretCrush === true) {
-      friendshipElements +=
-        "secret-crush friendships: they like each other but won't express it, ";
     }
     if (data.other === true) {
       friendshipElements += data.otherInfo;
@@ -643,7 +652,12 @@ class CriticSurvey extends React.Component {
     });
   };
 
-  submitHandler = async(e) => {
+  submitHandler = async (e) => {
+
+    this.setState({
+      sending: true
+    })
+
     var bodyFormDataCritic = new FormData();
 
     bodyFormDataCritic.append("isbn", this.state.isbn);
@@ -654,7 +668,7 @@ class CriticSurvey extends React.Component {
     bodyFormDataCritic.append("accountName", this.state.accountName);
     bodyFormDataCritic.append("bookType", this.state.bookType);
 
-    if (this.state.age_range === 'y') {
+    if (this.state.age_range === "y") {
       bodyFormDataCritic.append("clearness", this.state.clearness);
       bodyFormDataCritic.append("masterpiece", this.state.masterpiece);
     }
@@ -662,7 +676,10 @@ class CriticSurvey extends React.Component {
     bodyFormDataCritic.append("chatter", this.state.chatter);
     bodyFormDataCritic.append("chatterElements", this.state.chatterElements);
     bodyFormDataCritic.append("inspiration", this.state.inspiration);
-    bodyFormDataCritic.append("inspirationElements", this.state.inspirationElements);
+    bodyFormDataCritic.append(
+      "inspirationElements",
+      this.state.inspirationElements
+    );
     bodyFormDataCritic.append("feelings", this.state.feelings);
     bodyFormDataCritic.append("feelingsElements", this.state.feelingsElements);
     bodyFormDataCritic.append("accessibility", this.state.accessibility);
@@ -674,7 +691,10 @@ class CriticSurvey extends React.Component {
     bodyFormDataCritic.append("extraInfo", this.state.extraInfo);
     bodyFormDataCritic.append("feedback", this.state.feedback);
     bodyFormDataCritic.append("gripping", this.state.gripping);
-    bodyFormDataCritic.append("pacing", this.state.pacing);
+
+    if (this.state.age_range === "o") {
+      bodyFormDataCritic.append("pacing", this.state.pacing);
+    }
     bodyFormDataCritic.append("contentWarning", this.state.contentWarning);
     bodyFormDataCritic.append("favorite", this.state.favorite);
 
@@ -728,32 +748,40 @@ class CriticSurvey extends React.Component {
       headers: {
         "content-type": `multipart/form-data; boundary=$(form._boundary)`,
       },
-    });
-
-
-   
-    
-  }
-
+    })
+      // .then(
+      //   setTimeout(
+      //     function () {
+      //       this.setState({
+      //         sending: false,
+      //       });
+      //       if (this.state.sending === false) {
+      //         this.props.history.push("/submitted");
+      //       }
+      //     }.bind(this),
+      //     1500
+      //   )
+      // );
+      .then(this.props.history.push("/submitted"));
+  };
 
   render() {
     const container = {
       margin: "3%",
     };
     const bookTitle = {
-      fontSize: 20,
       fontWeight: "bold",
     };
     const bookInfo = {
-      fontSize: 20,
+      fontSize: 30,
     };
 
     if (this.state.author !== "") {
       return (
-        <form type='submit'>
+        <form type="submit">
           <FadeIn>
             <div style={container}>
-              <h2>Book Level and Target Review</h2>
+              {/* <h2>Book Level and Target Review</h2> */}
               <p style={bookInfo}>
                 <i style={bookTitle}>{this.state.title}</i> by{" "}
                 {this.state.author}
@@ -763,14 +791,14 @@ class CriticSurvey extends React.Component {
               <PlatformInfo onChange={this.handlePlatformInfo} />
 
               {/* for younger */}
-              {this.state.age_range === 'y' ? (
+              {this.state.age_range === "y" ? (
                 <>
-                <ClearnessCalculator onChange={this.handleClearness} />
-                <MasterpieceMeter onChange={this.handleMasterpiece} />
+                  <ClearnessCalculator onChange={this.handleClearness} />
+                  <MasterpieceMeter onChange={this.handleMasterpiece} />
                 </>
               ) : null}
 
-              <ChatterBar onChange={this.handleChatter} />
+              <ChatterBarCritic onChange={this.handleChatter} />
               <InspirationElement onChange={this.handleInspiration} />
               <FeelingFactor onChange={this.handleFeeling} />
 
@@ -834,10 +862,13 @@ class CriticSurvey extends React.Component {
 
               <AccessibilityScore onChange={this.handleAccessibility} />
               <GrippingGrade onChange={this.handleGripping} />
-              <PacingScore onChange={this.handlePacing} />
+
+              {this.state.age_range === "o" ? (
+                <PacingScore onChange={this.handlePacing} />
+              ) : null}
+
               <DiversityRep onChange={this.handleDiversity} />
               <FavLeastFav onChange={this.handleFav} />
-              <ContentWarning onChange={this.handleWarning} />
               <StarRating onChange={this.handleStars} />
               <Keywords onChange={this.handleKeywords} />
               <ExtraInfo onChange={this.handleExtraInfo} />
@@ -848,7 +879,16 @@ class CriticSurvey extends React.Component {
                 className="submitButton"
                 onClick={this.submitHandler}
               >
-                SUBMIT
+                {this.state.sending === true ? (
+                  <Spinner
+                    animation="border"
+                    role="status"
+                    variant="light"
+                    size="sm"
+                  />
+                ) : (
+                  "SUBMIT"
+                )}
               </button>
             </div>
           </FadeIn>

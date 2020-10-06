@@ -27,7 +27,6 @@ class ExtraInfo extends React.Component {
 
           <textarea
             className="textarea"
-            required
             name="extraInfo"
             // value={this.state.extraInfo}
             // onChange={(e) =>

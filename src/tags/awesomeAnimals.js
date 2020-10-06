@@ -70,7 +70,7 @@ class AwesomeAnimals extends React.Component {
       <>
         <p className="title">
           <span className="colorChangeAwesome">AWESOME ANIMALS:</span> Does this
-          book feature friendships animals that are{" "}
+          book feature animals that are{" "}
           <span className="colorChangeAwesome">central to the story?</span>
         </p>
 

@@ -193,8 +193,8 @@ class PersonalInfo extends React.Component {
                 <input
                   className="inputField"
                   name="name"
-                  placeholder="Name"
                   required
+                  placeholder="Name"
                   onBlur={this.handleChange}
                 />
               </div>
@@ -243,7 +243,7 @@ class PersonalInfo extends React.Component {
                   onChange={this.handleChangeLocation}
                   options={optionsLocation}
                   placeholder="State/Province"
-                  isSearchable={false}
+                  isSearchable={true}
                 />
               </div>
             </Col>

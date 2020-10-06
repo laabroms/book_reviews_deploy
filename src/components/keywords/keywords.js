@@ -27,7 +27,6 @@ class Keywords extends React.Component {
 
         <textarea
           className="textarea"
-          required
           name="keywords"
           // value={this.state.keywords}
           // onChange={(e) => this.setState({ keywords: e.target.value })}

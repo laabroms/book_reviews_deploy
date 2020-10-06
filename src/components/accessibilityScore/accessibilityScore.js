@@ -115,15 +115,15 @@ const styles = (theme) => ({
 const marks = [
   {
     value: 0,
-    label: "Inaccessible",
+    label: "Dense",
   },
   {
     value: 50,
-    label: "Somewhat accessible",
+    label: "Somewhat tricky",
   },
   {
     value: 100,
-    label: "Age-appropriate",
+    label: "Conversational",
   },
   
 ];

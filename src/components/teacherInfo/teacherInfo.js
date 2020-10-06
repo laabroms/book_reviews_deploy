@@ -95,7 +95,6 @@ class TeacherInfo extends React.Component {
                   className="inputField"
                   name="school"
                   placeholder="School"
-                  required
                   onBlur={this.handleChange}
                   autoCapitalize
                 />

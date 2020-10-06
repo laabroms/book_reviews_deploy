@@ -221,11 +221,11 @@ const muiTheme = createMuiTheme({
 const marks = [
   {
     value: 0,
-    label: "A little bit",
+    label: "Not at all",
   },
   {
     value: 50,
-    label: "Some",
+    label: "A little bit",
   },
   {
     value: 100,

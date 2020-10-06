@@ -9,9 +9,7 @@ import FadeIn from "react-fade-in";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
-
-
-class ChatterBar extends React.Component {
+class ChatterBarCritic extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +20,7 @@ class ChatterBar extends React.Component {
       educational: false,
       emotional: false,
       other: false,
-      otherInfo: '',
+      otherInfo: "",
     };
   }
 
@@ -35,14 +33,17 @@ class ChatterBar extends React.Component {
   };
 
   handleChangeOtherInfo = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(this.state);
+    this.setState(
+      {
+        [e.target.name]: e.target.value,
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(this.state);
+        }
       }
-    })
-  }
+    );
+  };
 
   handleChange = (newValue) => {
     this.setState(
@@ -59,7 +60,6 @@ class ChatterBar extends React.Component {
 
   render() {
     const { classes } = this.props;
-
 
     return (
       <>
@@ -84,7 +84,7 @@ class ChatterBar extends React.Component {
           </ThemeProvider>
         </div>
         <p className="moreInfo">
-          Which element(s) of the book would you/your child most likely want to
+          Which element(s) of the book would you most likely want to
           <span className="colorChange3"> discuss</span> after reading?
         </p>
         {/* <div className="checkbox"></div> */}
@@ -179,7 +179,6 @@ class ChatterBar extends React.Component {
                 </FadeIn>
               ) : null}
             </div>
-            
           </FormGroup>
         </div>
       </>
@@ -200,7 +199,6 @@ const styles = (theme) => ({
     borderImageSlice: "1",
     borderRadius: 10,
   },
-  
 });
 
 const muiTheme = createMuiTheme({
@@ -232,7 +230,6 @@ const marks = [
     value: 100,
     label: "Non-stop",
   },
-  
 ];
 
 // function valuetext(value) {
@@ -243,7 +240,4 @@ const marks = [
 //   return marks.findIndex((mark) => mark.value === value) + 1;
 // }
 
-
-export default withStyles(styles)(ChatterBar);
-
-
+export default withStyles(styles)(ChatterBarCritic);

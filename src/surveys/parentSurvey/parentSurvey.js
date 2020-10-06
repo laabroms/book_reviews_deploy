@@ -10,7 +10,7 @@ import FavLeastFav from '../../components/favLeastFav/favLeastFav';
 import {StarRating} from '../../components/starRating/starRating';
 import Keywords from '../../components/keywords/keywords';
 import ExtraInfo from '../../components/extraInfo/extraInfo';
-import FeedbackSlider from '../../components/feedback/feedbackSlider';
+import Feedback from '../../components/feedback/feedback';
 import FadeIn from "react-fade-in";
 import InspirationElement from '../../components/inspirationElement/inspirationElement';
 import GrippingGrade from '../../components/grippingGrade/grippingGrade';
@@ -43,7 +43,7 @@ export default class ParentSurvey extends React.Component {
       author: "",
       tags: "",
       age_range: "",
-      isbn: '',
+      isbn: "",
 
       name: "",
       age: "",
@@ -94,6 +94,7 @@ export default class ParentSurvey extends React.Component {
       suspense: 50,
       suspenseElements: "",
       complexity: "",
+      sending: false,
     };
   }
 
@@ -272,6 +273,33 @@ export default class ParentSurvey extends React.Component {
     if (data.anger === true) {
       feelingsElements += "anger, ";
     }
+    if (data.surprise === true) {
+      feelingsElements += "surprise, ";
+    }
+    if (data.disappointment === true) {
+      feelingsElements += "disappointment, ";
+    }
+    if (data.hopefulness === true) {
+      feelingsElements += "hopefulness, ";
+    }
+    if (data.amusement === true) {
+      feelingsElements += "amusement, ";
+    }
+    if (data.anxiety === true) {
+      feelingsElements += "anxiety, ";
+    }
+    if (data.compassion === true) {
+      feelingsElements += "compassion, ";
+    }
+    if (data.excitement === true) {
+      feelingsElements += "excitement, ";
+    }
+    if (data.confusion === true) {
+      feelingsElements += "confusion, ";
+    }
+    if (data.frustration === true) {
+      feelingsElements += "frustration, ";
+    }
     if (data.other === true) {
       feelingsElements += data.otherInfo;
     }
@@ -281,6 +309,7 @@ export default class ParentSurvey extends React.Component {
       feelingsElements: feelingsElements,
     });
   };
+
   handleAccessibility = (data) => {
     this.setState({
       accessibility: data.accessibility,
@@ -412,18 +441,8 @@ export default class ParentSurvey extends React.Component {
     if (data.lifelong === true) {
       friendshipElements += "lifelong friends, ";
     }
-    if (data.partners === true) {
-      friendshipElements += "partners-in-crime, ";
-    }
-    if (data.thickAndThin === true) {
-      friendshipElements += "through thick-and-thin friendships, ";
-    }
     if (data.unhealthy === true) {
       friendshipElements += "unhealthy friendships: mean-spirited, ";
-    }
-    if (data.secretCrush === true) {
-      friendshipElements +=
-        "secret-crush friendships: they like each other but won't express it, ";
     }
     if (data.other === true) {
       friendshipElements += data.otherInfo;
@@ -626,7 +645,11 @@ export default class ParentSurvey extends React.Component {
     });
   };
 
-  submitHandler = async(e) => {
+  submitHandler = async (e) => {
+    this.setState({
+      sending: true
+    })
+
     var bodyFormData = new FormData();
 
     bodyFormData.append("isbn", this.state.isbn);
@@ -635,7 +658,7 @@ export default class ParentSurvey extends React.Component {
     bodyFormData.append("location", this.state.location);
     bodyFormData.append("country", this.state.country);
 
-    if (this.state.age_range === 'y') {
+    if (this.state.age_range === "y") {
       bodyFormData.append("clearness", this.state.clearness);
       bodyFormData.append("masterpiece", this.state.masterpiece);
     }
@@ -655,9 +678,8 @@ export default class ParentSurvey extends React.Component {
     bodyFormData.append("extraInfo", this.state.extraInfo);
     bodyFormData.append("feedback", this.state.feedback);
     bodyFormData.append("gripping", this.state.gripping);
-    if (this.state.age_range === 'o') {
-     bodyFormData.append("pacing", this.state.pacing);
-
+    if (this.state.age_range === "o" || this.state.title === 'Guts') {
+      bodyFormData.append("pacing", this.state.pacing);
     }
     bodyFormData.append("favorite", this.state.favorite);
 
@@ -713,12 +735,19 @@ export default class ParentSurvey extends React.Component {
         "content-type": `multipart/form-data; boundary=$(form._boundary)`,
       },
     })
-    // .then(
-    //   this.props.history.push("/submitted"),
-
-    // );
-
-
+      // .then(
+      //    setTimeout(function () {
+      //     this.setState({
+      //       sending: false,
+      //     })
+      //     if (this.state.sending === false) {
+      //       this.props.history.push('/submitted')
+      //     }
+      //   }.bind(this), 1500)
+      // );
+      .then(
+        this.props.history.push('/submitted')
+      );
   };
 
   render() {
@@ -726,20 +755,19 @@ export default class ParentSurvey extends React.Component {
       margin: "3%",
     };
     const bookTitle = {
-      fontSize: 20,
       fontWeight: "bold",
     };
     const bookInfo = {
-      fontSize: 20,
+      fontSize: 30,
     };
 
     if (this.state.author !== "") {
       return (
-        <form type='submit'>
+        <form type="submit">
           <>
             <FadeIn>
               <div style={container}>
-                <h2>Book Level and Target Review</h2>
+                {/* <h2>Book Level and Target Review</h2> */}
                 <p style={bookInfo}>
                   <i style={bookTitle}>{this.state.title}</i> by{" "}
                   {this.state.author}
@@ -822,7 +850,7 @@ export default class ParentSurvey extends React.Component {
                 <GrippingGrade onChange={this.handleGripping} />
 
                 {/* for older */}
-                {this.state.age_range === "o" ? (
+                {this.state.age_range === "o" || this.state.title === 'Guts' ? (
                   <>
                     <PacingScore onChange={this.handlePacing} />
                   </>
@@ -833,14 +861,19 @@ export default class ParentSurvey extends React.Component {
                 <StarRating onChange={this.handleStars} />
                 <Keywords onChange={this.handleKeywords} />
                 <ExtraInfo onChange={this.handleExtraInfo} />
-                <FeedbackSlider onChange={this.handleFeedback} />
+                <Feedback onChange={this.handleFeedback} />
 
                 <button
                   type="submit"
                   className="submitButton"
                   onClick={this.submitHandler}
                 >
-                  SUBMIT
+                {this.state.sending === true ? (
+                  <Spinner animation="border" role="status" variant="light" size='sm' />
+                ) : 
+                  ('SUBMIT')
+                 }
+                  
                 </button>
               </div>
             </FadeIn>

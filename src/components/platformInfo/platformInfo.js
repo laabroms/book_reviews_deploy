@@ -132,7 +132,6 @@ class PlatformInfo extends React.Component {
                   className="inputField"
                   name="accountName"
                   placeholder="Account Name"
-                  required
                   onBlur={this.handleChange}
                 />
               </div>

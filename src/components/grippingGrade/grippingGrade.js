@@ -68,7 +68,6 @@ class GrippingGrade extends React.Component {
             <RadioGroup
               name="grippingGrade"
               onChange={this.handleChange}
-              required
             >
               <FormControlLabel
                 value="Snooze-Fest"
